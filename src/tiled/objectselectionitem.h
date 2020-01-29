@@ -39,12 +39,13 @@ class MapDocument;
 class MapObjectItem;
 class MapObjectLabel;
 class MapObjectOutline;
+class MapObjectReferenceItem;
 
 /**
  * A graphics item displaying object selection.
  *
- * Apart from selection outlines, it also displays name labels when
- * appropriate.
+ * Apart from selection outlines, it also displays name labels, hover highlight
+ * and object references.
  */
 class ObjectSelectionItem : public QGraphicsObject
 {
@@ -78,10 +79,13 @@ private:
 
     void addRemoveObjectLabels();
     void addRemoveObjectOutlines();
+    void addRemoveObjectReferences();
 
     MapDocument *mMapDocument;
     QHash<MapObject*, MapObjectLabel*> mObjectLabels;
     QHash<MapObject*, MapObjectOutline*> mObjectOutlines;
+    QHash<MapObject*, QList<MapObjectReferenceItem*>> mReferencesBySourceObject;
+    QHash<MapObject*, QList<MapObjectReferenceItem*>> mReferencesByTargetObject;
     std::unique_ptr<MapObjectItem> mHoveredMapObjectItem;
 };
 
